@@ -83,7 +83,7 @@ spec:
             runAsNonRoot: true
             runAsUser: 200000           
       volumes:
-        - name:  appmonitor-userdev
+        - name:  {{system}}-userdev
           persistentVolumeClaim:
-            claimName: appmonitor-userdev
+            claimName: {{system}}-userdev
             
