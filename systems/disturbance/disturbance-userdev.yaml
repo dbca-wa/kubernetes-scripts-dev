@@ -45,7 +45,7 @@ spec:
                 name: {{system}}-{{namespace}}-userdev
                 optional: false                
           name: {{system}}-userdev
-          image: dbcawa/docker_app_dev:disturbance_django_5_dev_latest
+          image: ghcr.io/dbca-wa/docker_app_dev:disturbance_django_5_dev_latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
