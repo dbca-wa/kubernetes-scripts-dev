@@ -2,7 +2,8 @@
     "name": "Wildlife Licensing Development (Legacy)",
     "workload_name" : "wildlifelicensing-userdev",
     "workload_deployment_file": "wildlifelicensing-userdev.yaml",    
-    "workload_storage_file": "wildlifelicensing-userdev-storage.yaml",    
+    "workload_storage_file": "wildlifelicensing-userdev-storage.yaml",  
+    "workload_service_file": "wildlifelicensing-userdev-service.yaml",  
     "use_generic_file" : true,    
     "environment_file" : "./env/wildlifelicensing-legacy.env",
     "dependency_workloads": ["postgres16"]
