@@ -1,5 +1,5 @@
 {
-    "name": "Wildlife Licensing Development (Legacy)",
+    "name": "Wildlife Licensing Development (Upgraded)",
     "workload_name" : "wildlifelicensing-userdev",
     "workload_deployment_file": "wildlifelicensing-userdev.yaml",    
     "workload_storage_file": "wildlifelicensing-userdev-storage.yaml",  
