@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sqs-userdev
+spec:
+  selector:
+    workload.user.cattle.io/workloadselector: apps.deployment-{{namespace}}-sqs-userdev
+  ports:
+    - name: sqs-userdev-7017
+      protocol: TCP
+      port: 7001
+      targetPort: 8080
+    - name: sqs-userdev-9131
+      protocol: TCP
+      port: 9131
+      targetPort: 9131
