@@ -8,7 +8,7 @@ spec:
   ports:
     - name: sqs-userdev-7017
       protocol: TCP
-      port: 7001
+      port: 7017
       targetPort: 8080
     - name: sqs-userdev-9131
       protocol: TCP
