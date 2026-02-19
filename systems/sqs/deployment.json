@@ -3,6 +3,7 @@
     "workload_name" : "sqs-userdev",
     "workload_deployment_file": "sqs-userdev.yaml",    
     "workload_storage_file": "sqs-userdev-storage.yaml",    
+    "workload_service_file": "sqs-userdev-service.yaml",     
     "use_generic_file" : true,    
     "environment_file" : "./env/sqs.env",
     "dependency_workloads": ["postgres16"]

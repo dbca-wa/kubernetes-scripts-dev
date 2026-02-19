@@ -60,7 +60,7 @@ spec:
             - mountPath: /rclone-mounts
               name: thermal-image-share-userdev
               subPath: rclone-mounts                
-          workingDir: /data/data/projects/spatial-layer-monitor/
+          workingDir: /data/data/projects/thermal-image-processing/
           resources:
             limits:
               cpu: '1'
