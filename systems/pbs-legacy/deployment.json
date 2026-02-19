@@ -1,0 +1,9 @@
+{
+    "name": "Prescribed Burns System Development (Legacy)",
+    "workload_name" : "pbs-legacy-userdev",
+    "workload_deployment_file": "pbs-legacy-userdev.yaml",    
+    "workload_storage_file": "pbs-legacy-userdev-storage.yaml",    
+    "use_generic_file" : true,    
+    "environment_file" : "./env/pbs-legacy.env",
+    "dependency_workloads": ["postgres16"]
+}
