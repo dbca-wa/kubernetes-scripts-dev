@@ -1,0 +1,9 @@
+{
+    "name": "Wildlife Licensing Development",
+    "workload_name" : "wll-legacy-userdev",
+    "workload_deployment_file": "wll-userdev.yaml",    
+    "workload_storage_file": "wll-userdev-storage.yaml",    
+    "use_generic_file" : true,    
+    "environment_file" : "./env/wll-legacy.env",
+    "dependency_workloads": ["postgres16"]
+}
