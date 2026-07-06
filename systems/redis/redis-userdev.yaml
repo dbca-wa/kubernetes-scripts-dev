@@ -16,7 +16,7 @@ spec:
     spec:
       initContainers:
           - name: file-permission-container
-            image: ghcr.io/dbca-wa/docker-apps-dev:busybox_base_latest
+            image: busybox
             command: ["sh", "-c", "mkdir -p /mnt/storage/data; mkdir -p /mnt/storage/container ; chown -R 200000:20000 /mnt/storage/"]              
             volumeMounts:
               - name: {{system}}-userdev
@@ -40,11 +40,11 @@ spec:
                 name: {{system}}-{{namespace}}-userdev
                 optional: false                
           name: {{system}}-userdev
-          image: ghcr.io/dbca-wa/docker-app-dev:gokart-sss-django_dev_latest 
+          image: redis:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 8080
-              name: tcp8080
+            - containerPort: 6379
+              name: tcp6379
               protocol: TCP
           stdin: true          
           tty: true     
@@ -55,11 +55,11 @@ spec:
             - mountPath: /home/container/
               name: {{system}}-userdev
               subPath: container   
-          workingDir: /data/data/projects/gokart-sss-django/
+          workingDir: /data/data/projects/redis/
           resources:
             limits:
               cpu: '1'
-              memory: 6Gi
+              memory: 2Gi
             requests:
               cpu: 10m
               memory: 1Gi          
