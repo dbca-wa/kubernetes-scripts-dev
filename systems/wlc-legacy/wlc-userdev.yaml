@@ -42,7 +42,7 @@ spec:
                 name: {{system}}-{{namespace}}-userdev
                 optional: false                
           name: {{system}}-userdev
-          image: dbcawa/docker_app_dev:wildlifecompliance_dev_2025.09.04.09.0113
+          image: ghcr.io/dbca-wa/docker_app_dev:wildlifecompliance_dev_latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
