@@ -40,7 +40,7 @@ spec:
                 name: {{system}}-{{namespace}}-userdev
                 optional: false                
           name: {{system}}-userdev
-          image:  ghcr.io/dbca-wa/docker_app_dev:wildlifecompliance_dev_latest
+          image:  ghcr.io/dbca-wa/docker_app_dev:wildlifecompliance_dev_latest_seg
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
