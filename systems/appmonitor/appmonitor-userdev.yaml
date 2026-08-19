@@ -16,6 +16,7 @@ spec:
     spec:    
       securityContext:
         fsGroup: 20000                 # Automatically updates disk contents to group 20000
+        supplementalGroups: [20000]
         fsGroupChangePolicy: "OnRootMismatch" # Skips chown on subsequent boots    
       tolerations:
         - effect: NoSchedule
