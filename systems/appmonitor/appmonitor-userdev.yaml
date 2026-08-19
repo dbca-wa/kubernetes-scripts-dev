@@ -17,7 +17,25 @@ spec:
       securityContext:
         fsGroup: 20000                 # Automatically updates disk contents to group 20000
         supplementalGroups: [20000]
-        fsGroupChangePolicy: "OnRootMismatch" # Skips chown on subsequent boots    
+        fsGroupChangePolicy: "OnRootMismatch" # Skips chown on subsequent boots   
+      initContainers:
+        - name: folder-initializer
+          image: ghcr.io/dbca-wa/docker-apps-dev:busybox_base_latest
+          # Mount the raw, bare volume WITHOUT subpaths so we can fix the directories
+          volumeMounts:
+            - name: {{system}}-userdev
+              mountPath: /mnt/storage/
+          # We create the folders natively. Because fsGroup is active, 
+          # these folders will inherit group 20000 access.
+          command: ["sh", "-c", "mkdir -p /mnt/storage/data /mnt/storage/container /mnt/storage/data/data/projects/appmonitor/"]              
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 200000   # Standard user, NOT root
+            runAsGroup: 20000
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL        
       tolerations:
         - effect: NoSchedule
           key: kubernetes.azure.com/scalesetpriority
