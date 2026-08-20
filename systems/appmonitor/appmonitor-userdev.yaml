@@ -33,6 +33,8 @@ spec:
             runAsUser: 200000   # Standard user, NOT root
             runAsGroup: 20000
             allowPrivilegeEscalation: false
+            seccompProfile:
+              type: RuntimeDefault            
             capabilities:
               drop:
                 - ALL        
@@ -92,6 +94,8 @@ spec:
             runAsNonRoot: true
             runAsUser: 200000    
             runAsGroup: 20000
+            seccompProfile:
+              type: RuntimeDefault            
       volumes:
         - name:  appmonitor-userdev
           persistentVolumeClaim:
