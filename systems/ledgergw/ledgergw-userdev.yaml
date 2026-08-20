@@ -15,8 +15,8 @@ spec:
         workload.user.cattle.io/workloadselector: apps.deployment-{{namespace}}-ledgergw-userdev	
     spec:
       securityContext:
-        fsGroup: 20000                 # Automatically updates disk contents to group 20000
-        supplementalGroups: [20000]
+        fsGroup: 5000                 # Automatically updates disk contents to group 20000
+        supplementalGroups: [5000]
         fsGroupChangePolicy: "OnRootMismatch" # Skips chown on subsequent boots      
       initContainers:
         - name: folder-initializer
@@ -30,8 +30,8 @@ spec:
           command: ["sh", "-c", "mkdir -p /mnt/storage/data /mnt/storage/container /mnt/storage/data/data/projects/ledger/"]              
           securityContext:
             runAsNonRoot: true
-            runAsUser: 200000   # Standard user, NOT root
-            runAsGroup: 20000
+            runAsUser: 5000   # Standard user, NOT root
+            runAsGroup: 5000
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: false
             seccompProfile:
@@ -87,8 +87,8 @@ spec:
               memory: 1Gi          
           securityContext:
             runAsNonRoot: true
-            runAsUser: 200000   # Standard user, NOT root
-            runAsGroup: 20000
+            runAsUser: 5000   # Standard user, NOT root
+            runAsGroup: 5000
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: false
             seccompProfile:
