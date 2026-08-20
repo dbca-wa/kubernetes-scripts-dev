@@ -27,7 +27,7 @@ spec:
               mountPath: /mnt/storage/
           # We create the folders natively. Because fsGroup is active, 
           # these folders will inherit group 20000 access.
-          command: ["sh", "-c", "mkdir -p /mnt/storage/data /mnt/storage/container  /var/lib/postgresql/data/data"]              
+          command: ["sh", "-c", "mkdir -p /mnt/storage/data /mnt/storage/container"]              
           securityContext:
             runAsNonRoot: true
             runAsUser: 999   # Standard user, NOT root
