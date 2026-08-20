@@ -27,7 +27,7 @@ spec:
               mountPath: /mnt/storage/
           # We create the folders natively. Because fsGroup is active, 
           # these folders will inherit group 5000 access.
-          command: ["sh", "-c", "mkdir -p /mnt/storage/data /mnt/storage/container /opt/geoserver_data /mnt/storage/geoserver_data /mnt/storage/logs"]              
+          command: ["sh", "-c", "mkdir -p /mnt/storage/data /mnt/storage/container /mnt/storage/geoserver_data /mnt/storage/logs"]              
           securityContext:
             runAsNonRoot: true
             runAsUser: 5000   # Standard user, NOT root
