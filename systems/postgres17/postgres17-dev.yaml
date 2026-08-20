@@ -68,15 +68,16 @@ spec:
               cpu: 10m
               memory: 1Gi          
           securityContext:
+            runAsNonRoot: true
+            runAsUser: 999   # Standard user, NOT root
+            runAsGroup: 999
             allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false
+            seccompProfile:
+              type: RuntimeDefault            
             capabilities:
               drop:
-                - ALL          
-            privileged: false
-            readOnlyRootFilesystem: false
-            runAsNonRoot: false
-            runAsUser: 999 
-            runAsGroup: 999                    
+                - ALL                     
       volumes:
         - name:  {{system}}-userdev
           persistentVolumeClaim:
