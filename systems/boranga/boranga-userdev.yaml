@@ -27,7 +27,7 @@ spec:
               mountPath: /mnt/storage/
           # We create the folders natively. Because fsGroup is active, 
           # these folders will inherit group 20000 access.
-          command: ["sh", "-c", "mkdir -p /mnt/storage/data /mnt/storage/container /mnt/storage/data/data/projects/api_gateway/"]              
+          command: ["sh", "-c", "mkdir -p /mnt/storage/data /mnt/storage/container /mnt/storage/data/data/projects/boranga/"]              
           securityContext:
             runAsNonRoot: true
             runAsUser: 200000   # Standard user, NOT root
