@@ -13,17 +13,31 @@ spec:
     metadata:
       labels:
         workload.user.cattle.io/workloadselector: apps.deployment-{{namespace}}-appmonitor-userdev
-    spec:
+    spec:    
+      securityContext:
+        fsGroup: 20000                 # Automatically updates disk contents to group 20000
+        supplementalGroups: [20000]
+        fsGroupChangePolicy: "OnRootMismatch" # Skips chown on subsequent boots   
       initContainers:
-          - name: file-permission-container
-            image: busybox
-            command: ["sh", "-c", "mkdir -p /mnt/storage/data; mkdir -p /mnt/storage/container ; chown -R 200000:20000 /mnt/storage/"]              
-            volumeMounts:
-              - name: appmonitor-userdev
-                mountPath: /mnt/storage/
-            securityContext:
-              runAsUser: 0 # Run as root user
-              allowPrivilegeEscalation: true  
+        - name: folder-initializer
+          image: ghcr.io/dbca-wa/docker-apps-dev:busybox_base_latest
+          # Mount the raw, bare volume WITHOUT subpaths so we can fix the directories
+          volumeMounts:
+            - name: {{system}}-userdev
+              mountPath: /mnt/storage/
+          # We create the folders natively. Because fsGroup is active, 
+          # these folders will inherit group 20000 access.
+          command: ["sh", "-c", "mkdir -p /mnt/storage/data /mnt/storage/container /mnt/storage/data/data/projects/appmonitor/"]              
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 200000   # Standard user, NOT root
+            runAsGroup: 20000
+            allowPrivilegeEscalation: false
+            seccompProfile:
+              type: RuntimeDefault            
+            capabilities:
+              drop:
+                - ALL        
       tolerations:
         - effect: NoSchedule
           key: kubernetes.azure.com/scalesetpriority
@@ -66,7 +80,7 @@ spec:
           resources:
             limits:
               cpu: '1'
-              memory: 4Gi
+              memory: 6Gi
             requests:
               cpu: 10m
               memory: 2Gi          
@@ -78,7 +92,10 @@ spec:
             privileged: false
             readOnlyRootFilesystem: false
             runAsNonRoot: true
-            runAsUser: 200000           
+            runAsUser: 200000    
+            runAsGroup: 20000
+            seccompProfile:
+              type: RuntimeDefault            
       volumes:
         - name:  appmonitor-userdev
           persistentVolumeClaim:

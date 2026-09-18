@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{system}}-userdev
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate  
+  selector:
+    matchLabels:
+      workload.user.cattle.io/workloadselector: apps.deployment-{{namespace}}-{{system}}-userdev
+  template:
+    metadata:
+      labels:
+        workload.user.cattle.io/workloadselector: apps.deployment-{{namespace}}-{{system}}-userdev
+    spec:
+      securityContext:
+        fsGroup: 999                 # Automatically updates disk contents to group 999
+        supplementalGroups: [999]
+        fsGroupChangePolicy: "OnRootMismatch" # Skips chown on subsequent boots     
+      initContainers:
+        - name: folder-initializer
+          image: ghcr.io/dbca-wa/docker-apps-dev:busybox_base_latest
+          # Mount the raw, bare volume WITHOUT subpaths so we can fix the directories
+          volumeMounts:
+            - name: {{system}}-userdev
+              mountPath: /mnt/storage/
+          # We create the folders natively. Because fsGroup is active, 
+          # these folders will inherit group 20000 access.
+          command: ["sh", "-c", "mkdir -p /mnt/storage/data /mnt/storage/container"]              
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 999   # Standard user, NOT root
+            runAsGroup: 999
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false
+            seccompProfile:
+              type: RuntimeDefault            
+            capabilities:
+              drop:
+                - ALL    
+      containers:
+        - env:            
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+          envFrom:                 
+            - secretRef:
+                name: {{system}}-{{namespace}}-userdev
+                optional: false                         
+          name: {{system}}-userdev
+          image: ghcr.io/dbca-wa/docker-apps-dev:{{system}}_latest  
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5432
+              name: tcp5432
+              protocol: TCP
+          stdin: true          
+          tty: true     
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: {{system}}-userdev
+              subPath: data                      
+          resources:
+            limits:
+              cpu: '3'
+              memory: 4Gi
+            requests:
+              cpu: 10m
+              memory: 1Gi          
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 999   # Standard user, NOT root
+            runAsGroup: 999
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false
+            seccompProfile:
+              type: RuntimeDefault            
+            capabilities:
+              drop:
+                - ALL                     
+      volumes:
+        - name:  {{system}}-userdev
+          persistentVolumeClaim:
+            claimName: {{system}}-userdev          
+

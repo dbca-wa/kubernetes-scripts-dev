@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: wildlifelicensing-userdev
+spec:
+  selector:
+    workload.user.cattle.io/workloadselector: apps.deployment-{{namespace}}-wildlifelicensing-userdev
+  ports:
+    - name: http
+      protocol: TCP
+      port: 7005
+      targetPort: 8080
+    - name: development
+      protocol: TCP
+      port: 9041
+      targetPort: 9041
+
+
