@@ -23,7 +23,7 @@ spec:
           image: ghcr.io/dbca-wa/docker-apps-dev:busybox_base_latest
           # Mount the raw, bare volume WITHOUT subpaths so we can fix the directories
           volumeMounts:
-            - name: {{system}}-userdev
+            - name: ubuntu2404-userdev
               mountPath: /mnt/storage/
           # We create the folders natively. Because fsGroup is active, 
           # these folders will inherit group 20000 access.
