@@ -14,6 +14,10 @@ spec:
       labels:
         workload.user.cattle.io/workloadselector: apps.deployment-{{namespace}}-{{system}}-userdev
     spec:
+      securityContext:
+        fsGroup: 999                 # Automatically updates disk contents to group 999
+        supplementalGroups: [999]
+        fsGroupChangePolicy: "OnRootMismatch" # Skips chown on subsequent boots         
       initContainers:
         - name: folder-initializer
           image: ghcr.io/dbca-wa/docker-apps-dev:busybox_base_latest
