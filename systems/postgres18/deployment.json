@@ -1,0 +1,10 @@
+{
+    "name": "Postgres18 Development Database",
+    "workload_name" : "postgres18-userdev",
+    "workload_deployment_file": "postgres18-dev.yaml",    
+    "workload_storage_file": "postgres18-dev-storage.yaml",    
+    "workload_service_file": "postgres18-dev-service.yaml",  
+    "use_generic_file" : true,    
+    "environment_file" : "./env/postgres18.env",
+    "dependency_workloads": ["postgres18"]
+}
