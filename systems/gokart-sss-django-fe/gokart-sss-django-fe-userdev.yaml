@@ -55,7 +55,7 @@ spec:
                 name: {{system}}-{{namespace}}-userdev
                 optional: false                
           name: {{system}}-userdev
-          image: ghcr.io/dbca-wa/docker-app-dev:gokart-sss-django_dev_latest_frontend 
+          image: ghcr.io/dbca-wa/docker_app_dev:gokart-sss-django_dev_latest_frontend
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
