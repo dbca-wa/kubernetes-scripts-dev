@@ -1,0 +1,9 @@
+{
+    "name": "Gokart SSS Django Development Frontend Upgrade",
+    "workload_name" : "gokart-sss-django-fe-userdev",
+    "workload_deployment_file": "gokart-sss-django-fe-userdev.yaml",    
+    "workload_storage_file": "gokart-sss-django-userdev-fe-storage.yaml",    
+    "use_generic_file" : true,    
+    "environment_file" : "./env/gokart-sss-django-fe.env",
+    "dependency_workloads": ["postgres18"]
+}
